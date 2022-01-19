@@ -1,3 +1,9 @@
-import { createConnection } from 'typeorm';
+import mongoose, { MongooseOptions } from "mongoose";
 
-(async () => await createConnection())();
+
+//export default mongoose.connect('mongodb+srv://blerg:TaICk8rgqANLlg8x@cluster0.u2ixg.mongodb.net/tindin?retryWrites=true&w=majority');
+mongoose.connect('mongodb://localhost/tinbin');
+mongoose.Promise = global.Promise;
+
+
+export { mongoose };

@@ -3,7 +3,7 @@ import { User } from "../entity/User";
 import { IUserDto } from "../dtos/IUserDto";
 
 interface IUserRepository {
-    findByEmail(email: string): Promise<User | undefined>;
+    findByEmail(email: string): Promise<User | null>;
 }
 
 export { IUserRepository };

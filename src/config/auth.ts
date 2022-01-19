@@ -1,4 +1,4 @@
 export default {
-    secret_token: "3bba4493fc69a27916924cd63869951d",
+    secret_token: process.env.SECRET,
     token_expiration: "1h",
 };

@@ -1,39 +1,33 @@
-import { Column, CreateDateColumn, Entity, ObjectID, ObjectIdColumn, OneToMany, PrimaryColumn, UpdateDateColumn } from "typeorm";
 import { Comment } from "../../comment/entity/Comment";
+//import mongoose, { Document } from "mongoose";
+import { Document } from 'mongoose';
+import { mongoose } from "../../../database/"
 
-@Entity("classes")
-class Classes {
 
-    @ObjectIdColumn()
-    id: ObjectID;
 
-    @Column()
+export const classesSchema = new mongoose.Schema( {
+    name: {type: String, trim: true, required: true},
+
+    description: {type: String, trim: true, required: true},
+
+    video: {type: String, trim: true, required: true},
+
+    date_init: {type: Date, required: true},
+
+    date_end: {type: Date, required: true},
+
+    comments: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Comment' }],
+
+    total_comments: {type: Number, default: 0}}, {timestamps: {createdAt: "date_created", updatedAt: "date_updated"}});
+
+export class Classes {
     name: string;
-
-    @Column()
     description: string;
-
-    @Column()
     video: string;
-
-    @Column()
     date_init: Date;
-
-    @Column()
     date_end: Date;
-
-    @CreateDateColumn()
     date_created: Date;
-
-    @UpdateDateColumn()
     date_updated: Date;
-
-    @OneToMany(() => Comment, comment => comment.id_class)
     comments: Comment[];
-
-    @Column()
-    total_comments: number
-
-}
-
-export { Classes };
+    total_comments: string;
+} 

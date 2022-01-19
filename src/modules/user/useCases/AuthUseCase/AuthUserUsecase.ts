@@ -12,6 +12,7 @@ class AuthUserUseCase {
     constructor(
         @inject("UsersRepository") private userRepository: IUserRepository
     ) {}
+    
     async execute({
         email,
         password,
@@ -27,11 +28,11 @@ class AuthUserUseCase {
             throw new Error("Invalid Email or Password");
         }
 
-        const token = sign({}, auth.secret_token, {
+        const token = sign({}, auth.secret_token || "", {
             subject: user.email,
             expiresIn: auth.token_expiration,
         });
-        const res: IUserDTO = {
+        const res: IUserDto = {
             email: user.email,
             token,
             name: user.name

@@ -1,7 +1,9 @@
 import { Router } from "express";
+import { AuthUserController } from "../modules/user/useCases/AuthUseCase/AuthUserController";
 
 const usersRouter = Router();
 
-usersRouter.post("/users", () => {}, () => {})
+const authController = new AuthUserController();
+usersRouter.post("", (request, response) => {})
 
 export {usersRouter}

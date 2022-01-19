@@ -1,27 +1,55 @@
 import { container } from "tsyringe";
 import { getRepository, Repository } from "typeorm";
-
-import { IClassDto } from "../dtos/IClassDto";
+import { Classes, classesSchema } from "../entity/Classes";
+import { IClassFilters } from "../forms/IClassFilters";
 import { ICreateClassForm } from "../forms/ICreateClassForm";
-import { IGetAllClassesForm } from "../forms/IGetAllClassesForm";
-import { IGetClassForm } from "../forms/IGetClassForm";
 import { IUpdateClassForm } from "../forms/IUpdateClassForm";
 import { IClassesRepository } from "./IClassesRepository";
+import mongoose, { Model } from "mongoose";
 
 export class ClassesRepository implements IClassesRepository {
-    getAllClasses(data: IGetAllClassesForm): Promise<IClassDto[]> {
-        throw new Error("Method not implemented.");
-    }
-    getClass(data: IGetClassForm): Promise<IClassDto> {
-        throw new Error("Method not implemented.");
-    }
-    update(data: IUpdateClassForm): Promise<IClassDto> {
-        throw new Error("Method not implemented.");
-    }
-    create(data: ICreateClassForm): Promise<IClassDto> {
-        throw new Error("Method not implemented.");
-    }
-    delete(id: string): Promise<void> {
-        throw new Error("Method not implemented.");
-    }
+  private model: Model<Classes>;
+
+  constructor() {
+    this.model = mongoose.model("Classes", classesSchema);
+  }
+
+  async getAllClasses(
+    page?: number,
+    filter?: IClassFilters
+  ): Promise<Classes[] | null> {
+    return await this.model.aggregate([
+      { $match: {} }, //colocar filtros
+      {
+        $lookup: {
+          from: "Comments",
+          foreignField: "id_class",
+          localField: "_id",
+          as: "comments",
+        },
+      },
+    ]);
+  }
+
+  async getClass(id: string): Promise<Classes | null> {
+    return await this.model.findById(id);
+  }
+
+  async update(data: IUpdateClassForm): Promise<Classes | null> {
+    const { id, ...updateQuery } = data;
+    return await this.model.findByIdAndUpdate(
+      { _id: id },
+      { $set: updateQuery },
+      { new: true }
+    );
+  }
+
+  create(data: ICreateClassForm): Promise<Classes> {
+    const classes = new this.model(data);
+    return classes.save();
+  }
+
+  async delete(id: string): Promise<void> {
+    this.model.findByIdAndDelete(id);
+  }
 }

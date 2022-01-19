@@ -1,4 +1,4 @@
-interface ICreateClassForm {
+interface IUpdateClassForm {
 
     id: string,
     name?: String,
@@ -6,6 +6,7 @@ interface ICreateClassForm {
     video?: string,
     data_init?: Date,
     data_end?: Date,
+    total_comments?: string
     }
     
-    export { ICreateClassForm };
+    export { IUpdateClassForm };

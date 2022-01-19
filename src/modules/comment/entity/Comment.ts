@@ -1,29 +1,22 @@
-import {
-    Column,
-    CreateDateColumn,
-    Entity,
-    ManyToOne,
-    ObjectID,
-    ObjectIdColumn
-} from "typeorm";
-
+//import mongoose, { Document } from "mongoose";
 import { Classes } from "../../classes/entity/Classes";
+import { Document } from 'mongoose';
+import { mongoose } from "../../../database/"
 
-@Entity("comments")
-class Comment {
 
-    @ObjectIdColumn()
-    id: ObjectID;
 
-    @Column()
+
+
+export const commentSchema = new mongoose.Schema( {
+    comment: {type: String, trim: true, required: true},
+
+    id_class: { type: mongoose.Schema.Types.ObjectId, ref: 'Classes' }},
+ 
+    {timestamps: {createdAt: "date_created", updatedAt: "date_updated"}});
+
+export class Comment {
     comment: string;
-
-    @ManyToOne(() => Classes, classes => classes.comments)
-    id_class: Classes;
-
-    @CreateDateColumn()
     date_created: Date;
-
-}
-
-export { Comment };
+    date_updated: Date;
+    id_class: string;
+} 

@@ -1,7 +1,6 @@
-import express from "express";
+import "./database";
+import { app }  from "./app"
 
-const app = express();
 
 app.get("/", (request, response) => {return response.json({message: "hello"});})
-
-app.listen(3333);
+app.listen(process.env.PORT|| "3333", () => {console.log( "server started")});

@@ -2,19 +2,20 @@ import {
     Column,
     Entity,
   } from 'typeorm';
-  
-  @Entity("users")
-  class User {
+// import mongoose, { Document } from "mongoose";
+import { Document } from 'mongoose';
+import { mongoose } from "../../../database/"
 
-    @Column()
-    email: string;
-  
-    @Column()
+export const userSchema = new mongoose.Schema( {
+  name: {type: String, trim: true, required: true},
+
+  email: {type: String, trim: true, required: true},
+
+  password: {type: String, trim: true, required: true}}
+  );
+
+  export class User {
     name: string;
-  
-    @Column()
+    email: string;
     password: string;
-  
-  }
-
-  export { User };
+} 

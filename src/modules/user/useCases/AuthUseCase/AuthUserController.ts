@@ -3,7 +3,7 @@ import { container } from "tsyringe";
 
 import { IUserDto } from "../../dtos/IUserDto";
 import { AuthUserUseCase } from "./AuthUserUsecase";
-import { AppError } from "../../../../shared/errors/AppError";
+
 
 class AuthUserController {
     async handle(request: Request, response: Response): Promise<Response> {

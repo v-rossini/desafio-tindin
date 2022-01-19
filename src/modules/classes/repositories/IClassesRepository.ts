@@ -1,16 +1,14 @@
-import { IClassDto } from "../dtos/IClassDto";
+import { Classes } from "../entity/Classes";
 import { IClassFilters } from "../forms/IClassFilters";
 import { ICreateClassForm } from "../forms/ICreateClassForm";
-import { IGetAllClassesForm } from "../forms/IGetAllClassesForm";
-import { IGetClassForm } from "../forms/IGetClassForm";
 import { IUpdateClassForm } from "../forms/IUpdateClassForm";
 
 
 interface IClassesRepository {
-    getAllClasses(data: IGetAllClassesForm, filter: IClassFilters): Promise<IClassDto[]>;
-    getClass(data: IGetClassForm): Promise<IClassDto>;
-    update(data: IUpdateClassForm): Promise<IClassDto>;
-    create(data: ICreateClassForm): Promise<IClassDto>;
+    getAllClasses(page?: number, filter?: IClassFilters): Promise<Classes[] | null>;
+    getClass(id: string): Promise<Classes | null>;
+    update(data: IUpdateClassForm): Promise<Classes | null>;
+    create(data: ICreateClassForm): Promise<Classes>;
     delete(id: string): Promise<void>;
 }
 

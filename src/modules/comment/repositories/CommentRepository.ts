@@ -1,31 +1,34 @@
 import { getRepository, Repository } from "typeorm";
 import { Classes } from "../../classes/entity/Classes";
 
-import { ICommentDto } from "../dtos/ICommentDto";
-import { Comment } from "../entity/Comment";
+import { Comment, commentSchema } from "../entity/Comment";
 import { ICreateCommentForm } from "../forms/ICreateCommentForm";
 import { IGetCommentsForm } from "../forms/IGetCommentsForm";
 import { ICommentRepository } from "./ICommentRepository";
+import mongoose, { Model } from "mongoose";
 
-class CommentRepository implements ICommentRepository {
-    private commentsRepository: Repository<Comment>;
-    private classRepository: Repository<Classes>;
+export class CommentRepository implements ICommentRepository {
+  private model: Model<Comment>;
 
-    constructor() {
-        this.commentsRepository = getRepository(Comment);
-    }
+  constructor() {
+    this.model = mongoose.model("Comment", commentSchema);
+  }
 
-    async getCommentsByClass(data: IGetCommentsForm): Promise<ICommentDto[]> {
-        throw new Error("Method not implemented.");
-    }
+  async getCommentsByClass(data: IGetCommentsForm): Promise<Comment[] | null> {
+    return await this.model.find({ id_class: data.id_class }).lean(true);
+  }
 
-    async create(  data: ICreateCommentForm  ): Promise<ICommentDto> {
-        throw new Error("Method not implemented.");
-    }
+  async create(data: ICreateCommentForm): Promise<Comment> {
+    const comment = new this.model(data);
+    await comment.save();
+    return comment.toObject();
+  }
 
-    async delete(id: string): Promise<void> {
-        await this.commentsRepository.delete({ id });
-    }
+  async findById(id: string): Promise<Comment | null> {
+    return await this.model.findById(id).lean(true);
+  }
+
+  async delete(id: string): Promise<void> {
+    this.model.findByIdAndDelete(id).lean(true);
+  }
 }
-
-export { CommentRepository };
