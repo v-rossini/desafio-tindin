@@ -2,34 +2,28 @@ import {
     Column,
     CreateDateColumn,
     Entity,
-    JoinColumn,
     ManyToOne,
-    PrimaryColumn,
-    UpdateDateColumn,
+    ObjectID,
+    ObjectIdColumn
 } from "typeorm";
-import { v4 as uuid } from "uuid";
 
 import { Classes } from "../../classes/entity/Classes";
 
 @Entity("comments")
 class Comment {
-    @PrimaryGeneratedColumn('uuid')
-    id: string;
+
+    @ObjectIdColumn()
+    id: ObjectID;
 
     @Column()
     comment: string;
 
     @ManyToOne(() => Classes, classes => classes.comments)
-    id_class: User;
+    id_class: Classes;
 
     @CreateDateColumn()
     date_created: Date;
 
-    constructor() {
-        if (!this.id) {
-            this.id = uuid();
-        }
-    }
 }
 
 export { Comment };

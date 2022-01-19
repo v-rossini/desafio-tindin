@@ -1,13 +1,12 @@
 import {
     Column,
     Entity,
-    PrimaryColumn,
   } from 'typeorm';
-  import { v4 as uuid } from 'uuid';
   
   @Entity("users")
   class User {
-    @PrimaryColumn()
+
+    @Column()
     email: string;
   
     @Column()

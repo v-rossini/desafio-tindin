@@ -1,10 +1,11 @@
-import { Column, Entity, PrimaryColumn } from "typeorm";
-import { v4 as uuid } from "uuid";
+import { Column, CreateDateColumn, Entity, ObjectID, ObjectIdColumn, OneToMany, PrimaryColumn, UpdateDateColumn } from "typeorm";
+import { Comment } from "../../comment/entity/Comment";
 
 @Entity("classes")
 class Classes {
-    @PrimaryColumn()
-    id: string;
+
+    @ObjectIdColumn()
+    id: ObjectID;
 
     @Column()
     name: string;
@@ -15,26 +16,24 @@ class Classes {
     @Column()
     video: string;
 
-    @CreateDateColumn()
+    @Column()
     date_init: Date;
 
-    @CreateDateColumn()
+    @Column()
     date_end: Date;
 
     @CreateDateColumn()
     date_created: Date;
 
-    @CreateDateColumn()
+    @UpdateDateColumn()
     date_updated: Date;
+
+    @OneToMany(() => Comment, comment => comment.id_class)
+    comments: Comment[];
 
     @Column()
     total_comments: number
 
-    constructor() {
-        if (!this.id) {
-            this.id = uuid();
-        }
-    }
 }
 
 export { Classes };
