@@ -6,7 +6,7 @@ interface IUpdateClassForm {
     video?: string,
     data_init?: Date,
     data_end?: Date,
-    total_comments?: string
+    total_comments?: number
     }
     
     export { IUpdateClassForm };

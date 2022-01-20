@@ -1,10 +1,4 @@
-import {
-    Column,
-    Entity,
-  } from 'typeorm';
-// import mongoose, { Document } from "mongoose";
-import { Document } from 'mongoose';
-import { mongoose } from "../../../database/"
+import mongoose, { Document } from 'mongoose';
 
 export const userSchema = new mongoose.Schema( {
   name: {type: String, trim: true, required: true},

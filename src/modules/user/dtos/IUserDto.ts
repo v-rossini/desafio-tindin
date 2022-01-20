@@ -4,5 +4,6 @@ interface IUserDto {
     token: string,
     email: string;
 
+
 }
 export { IUserDto };

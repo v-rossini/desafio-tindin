@@ -16,11 +16,12 @@ class CreateCommentUseCase {
     ) {}
 
     async execute(data: ICreateCommentForm): Promise<CommentDto> {
-        // const classes = await this.classesRepository.getClass(data.id_class);
-        // if (!classes) 
-            // throw new AppError("Classe inválida", 400) 
+        const classes = await this.classesRepository.getClass(data.id_class);
+        if (!classes) 
+            throw new AppError("Classe inválida", 400) 
         
-        const comment = await this.commentRepository.create(data); 
+        const comment = await this.commentRepository.create(data);
+        await this.classesRepository.update({id: comment.id_class, total_comments: classes.total_comments + 1})
         return new CommentDto(comment)
 
     }

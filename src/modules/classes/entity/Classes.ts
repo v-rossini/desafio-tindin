@@ -1,7 +1,7 @@
 import { Comment } from "../../comment/entity/Comment";
-//import mongoose, { Document } from "mongoose";
-import { Document } from 'mongoose';
-import { mongoose } from "../../../database/"
+import mongoose, { Document } from "mongoose";
+
+
 
 
 
@@ -29,5 +29,5 @@ export class Classes {
     date_created: Date;
     date_updated: Date;
     comments: Comment[];
-    total_comments: string;
+    total_comments: number;
 } 

@@ -15,9 +15,8 @@ export class ClassesRepository implements IClassesRepository {
   }
 
   async getAllClasses(
-    page?: number,
     filter?: IClassFilters
-  ): Promise<Classes[] | null> {
+  ): Promise<Classes[]> {
     return await this.model.aggregate([
       { $match: {} }, //colocar filtros
       {

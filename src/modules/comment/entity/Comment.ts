@@ -1,8 +1,5 @@
-//import mongoose, { Document } from "mongoose";
+import mongoose, { Document } from "mongoose";
 import { Classes } from "../../classes/entity/Classes";
-import { Document } from 'mongoose';
-import { mongoose } from "../../../database/"
-
 
 
 

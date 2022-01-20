@@ -3,7 +3,8 @@ import { AuthUserController } from "../modules/user/useCases/AuthUseCase/AuthUse
 
 const usersRouter = Router();
 
+
 const authController = new AuthUserController();
-usersRouter.post("", (request, response) => {})
+usersRouter.post("", authController.handle)
 
 export {usersRouter}

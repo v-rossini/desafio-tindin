@@ -15,7 +15,7 @@ class AuthUserController {
 
             token = await authUserUseCase.execute({ email, password });
         } catch(err)  {
-            return response.status(400).json(err);
+            return response.status(400).json({message: "email ou senha incorretos"});
         }
 
         return response.status(200).json(token);

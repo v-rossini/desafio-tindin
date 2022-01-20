@@ -5,7 +5,7 @@ import { IUpdateClassForm } from "../forms/IUpdateClassForm";
 
 
 interface IClassesRepository {
-    getAllClasses(page?: number, filter?: IClassFilters): Promise<Classes[] | null>;
+    getAllClasses(filter?: IClassFilters): Promise<Classes[]>;
     getClass(id: string): Promise<Classes | null>;
     update(data: IUpdateClassForm): Promise<Classes | null>;
     create(data: ICreateClassForm): Promise<Classes>;

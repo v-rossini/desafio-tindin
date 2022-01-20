@@ -5,7 +5,7 @@ import { Comment } from "../entity/Comment"
 
 
 interface ICommentRepository {
-    getCommentsByClass(data: IGetCommentsForm): Promise<Comment[] | null>;
+    getCommentsByClass(id: String): Promise<Comment[]>;
     create(data: ICreateCommentForm): Promise<Comment>;
     findById(id: string): Promise<Comment | null>
     delete(id: string): Promise<void>;

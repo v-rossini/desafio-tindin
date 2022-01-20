@@ -1,12 +1,12 @@
 import { inject, injectable } from "tsyringe";
 
-import { ICreateCommentForm } from "../../forms/ICreateCommentForm";
-import { CommentDto } from "../../dtos/CommentDto";
-import { ICommentRepository } from "../../repositories/ICommentRepository";
-import { IClassesRepository } from "../../../classes/repositories/IClassesRepository";
+import { ClassDto } from "../../dtos/ClassDto";
+import { IClassesRepository } from "../../repositories/IClassesRepository";
+import { ICommentRepository } from "../../../comment/repositories/ICommentRepository";
+
 
 @injectable()
-class DeleteCommentUsecase {
+class DeleteClassUsecase {
     constructor(
         @inject("CommentRepository")
         private commentRepository: ICommentRepository,
@@ -19,12 +19,10 @@ class DeleteCommentUsecase {
         if (comment) {
             const classes = await this.classesRepository.getClass(comment.id_class)
             if (classes) {
-            await this.classesRepository.update({id: comment.id_class, total_comments: classes.total_comments - 1})
+            await this.classesRepository.delete(id)
             }
         }
     }
 }
 
-export { DeleteCommentUsecase };
-
-
+export { DeleteClassUsecase };

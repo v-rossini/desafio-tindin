@@ -16,13 +16,15 @@ class ClassDto {
   last_comment: Comment;
   last_comment_date: Date;
 
-  constructor(classes: Classes) {
-    Object.assign(this, classes);
+  constructor(classes: Classes | null) {
+    if(classes)
+    {Object.assign(this, classes);
     this.comments = this.comments
       .sort(sortByDate)
       .slice(0,3);
     this.last_comment = this.comments[0];
     this.last_comment_date = this.last_comment.date_created;
+    }
   }
 }
 

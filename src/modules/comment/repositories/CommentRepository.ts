@@ -14,8 +14,8 @@ export class CommentRepository implements ICommentRepository {
     this.model = mongoose.model("Comment", commentSchema);
   }
 
-  async getCommentsByClass(data: IGetCommentsForm): Promise<Comment[] | null> {
-    return await this.model.find({ id_class: data.id_class }).lean(true);
+  async getCommentsByClass(id: string): Promise<Comment[]> {
+    return await this.model.find({ id_class: id }).lean(true);
   }
 
   async create(data: ICreateCommentForm): Promise<Comment> {
